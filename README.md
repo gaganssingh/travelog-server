@@ -20,9 +20,10 @@ Works with https://github.com/gaganssingh/travelog-app
 ### Whats included in this code base:
 
 -   `do` and `undo` migrations to create tables in the database.
--   `trunc` files to seed and truncate data from the database (seeds are not included as the database requires image uploads).
+-   `trunc` files to seed and truncate data from the database (seeds are not included as users and places can be added after application is up and running).
 -   Server configuration
 -   Endpoint routers
+-   Authentication and authorization
 -   Testing for all endpoints
 
 ## Techenical stack
@@ -35,10 +36,6 @@ Works with https://github.com/gaganssingh/travelog-app
 -   Morgan
 -   Helmet
 -   Dotenv
-
-### Image upload achieved using
-
--   Multer
 
 ### Database built & hosted using
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const PlacesService = require("./places-service");
-const UsersService = require("../users/users-service");
 const getCoordinates = require("../helpers/location");
 const checkAuth = require("../middlewares/check-auth");
 
