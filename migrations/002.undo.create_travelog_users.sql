@@ -1,0 +1,4 @@
+ALTER TABLE places
+  DROP COLUMN IF EXISTS creator;
+
+DROP TABLE IF EXISTS users;
