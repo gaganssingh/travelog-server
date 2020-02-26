@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const authRouter = express.Router();
 const jsonBodyParser = express.json();
 const config = require("../config");
+const CustomError = require("../helpers/custom-error-model");
 
 // Login User Route
 authRouter.post("/", jsonBodyParser, (req, res, next) => {
@@ -22,10 +23,13 @@ authRouter.post("/", jsonBodyParser, (req, res, next) => {
     // database.
     AuthService.getUserWithEmail(req.app.get("db"), loginUser.email)
         .then((dbUser) => {
-            if (!dbUser)
-                return res.status(500).send({
-                    error: "Incorrect email or password"
-                });
+            if (!dbUser) {
+                const error = new CustomError(
+                    "That email address does not exist in our system, please signup instead.",
+                    403
+                );
+                return next(error);
+            }
 
             // if email exists in database,
             // checks whether user supplied password
@@ -34,10 +38,13 @@ authRouter.post("/", jsonBodyParser, (req, res, next) => {
                 loginUser.password,
                 dbUser.password
             ).then((compareMatch) => {
-                if (!compareMatch)
-                    return res.status(400).json({
-                        error: "Incorrect email or password"
-                    });
+                if (!compareMatch) {
+                    const error = new CustomError(
+                        "Inlavid password, could not log you in.",
+                        403
+                    );
+                    return next(error);
+                }
 
                 // If both user email & password pass
                 // validation, generates the login token

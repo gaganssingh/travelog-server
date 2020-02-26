@@ -2,7 +2,6 @@ const express = require("express");
 const PlacesService = require("./places-service");
 const getCoordinates = require("../helpers/location");
 const checkAuth = require("../middlewares/check-auth");
-
 const placesRouter = express.Router();
 const jsonBodyParser = express.json();
 
