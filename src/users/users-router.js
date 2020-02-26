@@ -66,16 +66,16 @@ usersRouter.post("/signup", jsonBodyParser, (req, res, next) => {
                         // Generate jwt token
                         let token = jwt.sign(
                             {
-                                userId: newUser.id,
-                                email: newUser.email
+                                userId: user.id,
+                                email: user.email
                             },
                             config.JWT_SECRET,
                             { expiresIn: "1h" }
                         );
                         // Construct and send response to the client
                         res.send({
-                            userId: newUser.id,
-                            email: newUser.email,
+                            userId: user.id,
+                            email: user.email,
                             token: token
                         });
                     });
