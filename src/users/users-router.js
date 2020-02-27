@@ -5,6 +5,7 @@ const UsersService = require("./users-service");
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 const config = require("../config");
+const CustomError = require("../helpers/custom-error-model");
 
 // Generic get all users
 usersRouter.get("/", (req, res, next) => {
@@ -42,9 +43,11 @@ usersRouter.post("/signup", jsonBodyParser, (req, res, next) => {
     UsersService.hasUserWithEmail(knexInstance, email)
         .then((hasUserWithEmail) => {
             if (hasUserWithEmail) {
-                return res.status(400).json({
-                    error: `Email already in use. Please signup instead.`
-                });
+                const error = new CustomError(
+                    "That email address has already been used, please login instead.",
+                    403
+                );
+                return next(error);
             }
 
             // Hash password

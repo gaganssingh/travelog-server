@@ -40,7 +40,7 @@ authRouter.post("/", jsonBodyParser, (req, res, next) => {
             ).then((compareMatch) => {
                 if (!compareMatch) {
                     const error = new CustomError(
-                        "Inlavid password, could not log you in.",
+                        "Invalid password, could not log you in.",
                         403
                     );
                     return next(error);

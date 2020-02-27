@@ -6,7 +6,7 @@ const placesRouter = express.Router();
 const jsonBodyParser = express.json();
 
 // HELPER FUNCTIONS
-// Generic get place by id route
+// Generic check place exists function
 async function checkPlaceExists(req, res, next) {
     try {
         const place = await PlacesService.getPlaceById(
@@ -86,7 +86,6 @@ placesRouter.route("/").post(
     (req, res, next) => {
         const knexInstance = req.app.get("db");
         const { title, description, address, userId } = req.body;
-        console.log(req.body);
 
         // Validating if all required keys are
         // present in the request body

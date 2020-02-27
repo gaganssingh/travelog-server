@@ -23,7 +23,7 @@ const UsersService = {
             return "Password must be 6 or more characters";
         }
         if (password.length > 72) {
-            return "Password be less than 72 characters";
+            return "Password must be less than 72 characters";
         }
         if (password.startsWith(" ") || password.endsWith(" ")) {
             return "Password must not start or end with empty spaces";
