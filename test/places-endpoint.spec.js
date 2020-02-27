@@ -7,7 +7,7 @@ describe(`/api/places endpoint`, () => {
     let db;
 
     const { testUsers, testPlaces } = helpers.makePlacesFixtures();
-    const testUser = testUsers[3];
+    const testUser = testUsers[0];
 
     before("make knex instance", () => {
         db = knex({
@@ -86,32 +86,4 @@ describe(`/api/places endpoint`, () => {
         // `Inserts a place, responding with 201 and the new place`
     });
     // End of `POST places`
-
-    describe.only(`PATCH places`, () => {
-        beforeEach("insert articles", () =>
-            helpers.seedPlacesTables(db, testUsers, testPlaces)
-        );
-
-        const requiredFields = ["title", "description"];
-
-        requiredFields.forEach((field) => {
-            const registerAttemptBody = {
-                title: "test title",
-                description: "test description"
-            };
-
-            it(`responds with 400 required error when '${field}' is missing`, () => {
-                delete registerAttemptBody[field];
-
-                return supertest(app)
-                    .post("/api/users/signup")
-                    .send(registerAttemptBody)
-                    .expect(400, {
-                        message: `Request body must contain either 'title' or 'description'`
-                    });
-            });
-        });
-        // End of `responds with 400 required error when '${field}' is missing`
-    });
-    // End of `PATCH places`
 });
